@@ -9,9 +9,17 @@ function getRandomHexColor() {
 function createBoxes(amount) {
   amount = Number.parseInt(amount);
   if (amount > 0 && amount <= 100) {
+    const targetElem = document.querySelector('#boxes');
     const htmlElems = [];
+    let nextBoxSize = 30;
+    let startAtBox = 1;
 
-    for (let i = 0, size = 30; i < amount; i++, size += 10) {
+    if (targetElem.children.length !== 0) {
+      startAtBox = targetElem.children.length;
+      nextBoxSize += targetElem.children.length * 10;
+    }
+
+    for (let i = startAtBox, size = nextBoxSize; i <= amount; i++, size += 10) {
       const htmlElem = document.createElement('div');
       htmlElem.style.height = size + 'px';
       htmlElem.style.width = size + 'px';
@@ -19,7 +27,7 @@ function createBoxes(amount) {
       htmlElems.push(htmlElem);
     }
 
-    document.querySelector('#boxes').append(...htmlElems);
+    targetElem.append(...htmlElems);
   }
 }
 
